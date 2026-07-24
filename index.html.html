@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Book · Kamilli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#FAF6F0;
+  --bg-alt:#F2ECE2;
+  --card:#FFFFFF;
+  --card-soft:#FBF8F3;
+  --sage:#9CAE8C;
+  --sage-dark:#7C9270;
+  --sage-tint:#E7EDE1;
+  --pink:#EAC7C2;
+  --pink-dark:#D9A69F;
+  --pink-tint:#F7E9E6;
+  --sand:#D8CBB3;
+  --ink:#3A342C;
+  --ink-soft:#8B8375;
+  --ink-faint:#B7AF9F;
+  --border:#EAE2D4;
+  --shadow: 0 10px 30px -12px rgba(58,52,44,0.12);
+  --shadow-sm: 0 4px 14px -6px rgba(58,52,44,0.10);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --font-display: "Fraunces", serif;
+  --font-body: "Manrope", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+[data-theme="dark"]{
+  --bg:#211E1A;
+  --bg-alt:#2A2622;
+  --card:#2D2924;
+  --card-soft:#332E28;
+  --sage:#93A886;
+  --sage-dark:#7C9270;
+  --sage-tint:#3A3E33;
+  --pink:#D9A69F;
+  --pink-dark:#C68F88;
+  --pink-tint:#3E332F;
+  --sand:#4A4335;
+  --ink:#F1ECE3;
+  --ink-soft:#B8AF9F;
+  --ink-faint:#7A7264;
+  --border:#3D3830;
+  --shadow: 0 10px 30px -12px rgba(0,0,0,0.4);
+  --shadow-sm: 0 4px 14px -6px rgba(0,0,0,0.35);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;
+  transition:background .4s ease, color .4s ease;
+}
+::selection{background:var(--pink-tint); color:var(--ink);}
+::-webkit-scrollbar{width:10px; height:10px;}
+::-webkit-scrollbar-thumb{background:var(--sand); border-radius:20px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+a{color:inherit;}
+button{font-family:inherit;}
+h1,h2,h3,h4{font-family:var(--font-display); margin:0; font-weight:500; letter-spacing:-.01em;}
+p{margin:0;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+}
+
+/* ============ LAYOUT ============ */
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* --- Sidebar --- */
+.sidebar{
+  width:250px;
+  flex-shrink:0;
+  background:var(--bg-alt);
+  border-right:1px solid var(--border);
+  padding:28px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+  transition:background .4s ease, border-color .4s ease;
+}
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:6px 12px 22px 12px;
+}
+.brand .mark{
+  width:38px; height:38px;
+  border-radius:12px;
+  background:linear-gradient(135deg, var(--sage) 0%, var(--pink) 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-style:italic; color:#fff; font-size:18px;
+  margin-bottom:10px;
+  box-shadow: var(--shadow-sm);
+}
+.brand h1{font-size:21px; color:var(--ink);}
+.brand span{font-family:var(--font-mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+
+.nav-item{
+  display:flex; align-items:center; gap:12px;
+  padding:11px 14px;
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  font-size:14.5px;
+  color:var(--ink-soft);
+  border:none; background:transparent; width:100%; text-align:left;
+  transition: background .25s ease, color .25s ease, transform .15s ease;
+}
+.nav-item .ic{font-size:16px; width:20px; text-align:center;}
+.nav-item:hover{background:var(--sage-tint); color:var(--ink);}
+.nav-item.active{
+  background:var(--card);
+  color:var(--ink);
+  box-shadow: var(--shadow-sm);
+  font-weight:600;
+}
+.nav-item.active .ic{filter:none;}
+
+.sidebar-foot{
+  margin-top:auto;
+  padding:14px 12px 4px;
+  font-family:var(--font-mono);
+  font-size:10px;
+  color:var(--ink-faint);
+  line-height:1.6;
+  border-top:1px solid var(--border);
+  padding-top:16px;
+}
+
+/* --- Main --- */
+.main{
+  flex:1;
+  min-width:0;
+  padding:34px 44px 60px;
+}
+.topbar{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  margin-bottom:30px;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.topbar .greet h2{font-size:26px;}
+.topbar .greet p{color:var(--ink-soft); font-size:13.5px; margin-top:4px; font-family:var(--font-mono);}
+.topbar .actions{display:flex; align-items:center; gap:10px;}
+.icon-btn{
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid var(--border);
+  background:var(--card);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:16px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease;
+}
+.icon-btn:hover{transform:translateY(-2px);}
+
+.page{
+  animation: fadeUp .45s ease both;
+}
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+.hidden{display:none !important;}
+
+/* ============ CARDS / GRID ============ */
+.grid{
+  display:grid;
+  gap:20px;
+}
+.grid.cols-3{grid-template-columns:repeat(3,1fr);}
+.grid.cols-2{grid-template-columns:repeat(2,1fr);}
+.grid.cols-4{grid-template-columns:repeat(4,1fr);}
+@media (max-width:1100px){
+  .grid.cols-3, .grid.cols-4{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:720px){
+  .grid.cols-2, .grid.cols-3, .grid.cols-4{grid-template-columns:1fr;}
+  .main{padding:78px 16px 60px;}
+  .sidebar{position:fixed; z-index:60; top:0; left:0; transform:translateX(-100%); transition:transform .3s ease; width:82%; max-width:290px; box-shadow:var(--shadow);}
+  .sidebar.open{transform:translateX(0);}
+  .app{display:block;}
+  .menu-toggle{display:flex !important;}
+  .sidebar-scrim{display:none; position:fixed; inset:0; background:rgba(20,17,12,.4); z-index:50;}
+  .sidebar-scrim.show{display:block;}
+  .topbar{margin-bottom:22px;}
+  .topbar .greet h2{font-size:21px;}
+  .card{padding:18px;}
+  .quote-block{padding:26px 20px;}
+  .quote-block p.big{font-size:18px;}
+  .week-grid{grid-template-columns:1fr;}
+  .list-item{flex-wrap:wrap; row-gap:8px;}
+  .list-item .meta{width:100%; order:1;}
+  .rings-wrap{justify-content:center; text-align:left;}
+  .modal{padding:22px; max-height:88vh;}
+  .badge-grid{justify-content:center;}
+  .badge{width:84px;}
+  .bookshelf{justify-content:center;}
+  .grid.cols-3 > [style*="span 2"]{grid-column:auto;}
+}
+@media (max-width:400px){
+  .main{padding:74px 12px 56px;}
+  .card{padding:16px;}
+  .stat-card .num{font-size:26px;}
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:24px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .3s ease, transform .3s ease, background .4s ease, border-color .4s ease;
+}
+.card:hover{box-shadow:var(--shadow);}
+.card h3{font-size:15px; margin-bottom:14px; display:flex; align-items:center; gap:8px;}
+.card .eyebrow{
+  font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.08em;
+  font-size:10px; color:var(--sage-dark); margin-bottom:6px; display:block;
+}
+
+.stat-card{display:flex; flex-direction:column; gap:8px;}
+.stat-card .num{font-family:var(--font-display); font-size:32px; color:var(--ink);}
+.stat-card .lbl{font-size:12.5px; color:var(--ink-soft);}
+
+.quote-block{
+  background: linear-gradient(135deg, var(--sage-tint), var(--pink-tint));
+  border-radius:var(--radius-lg);
+  padding:34px 40px;
+  text-align:center;
+  border:1px solid var(--border);
+}
+.quote-block p.big{
+  font-family:var(--font-display); font-style:italic; font-size:22px; line-height:1.5; color:var(--ink);
+  max-width:640px; margin:0 auto;
+}
+.quote-block p.small{font-size:12.5px; color:var(--ink-soft); margin-top:10px; font-family:var(--font-mono);}
+
+/* ============ RINGS (signature element) ============ */
+.rings-wrap{display:flex; align-items:center; gap:26px; flex-wrap:wrap;}
+.rings-legend{display:flex; flex-direction:column; gap:10px; flex:1; min-width:180px;}
+.legend-row{display:flex; align-items:center; gap:10px; font-size:13px;}
+.legend-dot{width:10px; height:10px; border-radius:50%; flex-shrink:0;}
+.legend-row b{margin-left:auto; font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);}
+
+/* ============ BUTTONS / FORMS ============ */
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 18px;
+  border-radius:100px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--ink);
+  cursor:pointer;
+  font-size:13.5px;
+  font-weight:600;
+  transition: all .2s ease;
+}
+.btn:hover{transform:translateY(-1px); box-shadow:var(--shadow-sm);}
+.btn.primary{background:var(--sage); border-color:var(--sage); color:#fff;}
+.btn.primary:hover{background:var(--sage-dark);}
+.btn.ghost{background:transparent;}
+.btn.danger{color:#B5544C; border-color:#E3B7B0;}
+.btn.sm{padding:6px 12px; font-size:12px;}
+
+input, textarea, select{
+  font-family:inherit;
+  background:var(--card-soft);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:10px 13px;
+  color:var(--ink);
+  font-size:13.5px;
+  width:100%;
+  outline:none;
+  transition:border-color .2s ease;
+}
+input:focus, textarea:focus, select:focus{border-color:var(--sage);}
+label{font-size:12px; color:var(--ink-soft); font-weight:600; margin-bottom:5px; display:block;}
+.field{margin-bottom:14px;}
+textarea{min-height:90px; resize:vertical;}
+
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(30,26,20,.35);
+  backdrop-filter:blur(3px);
+  display:flex; align-items:center; justify-content:center;
+  z-index:100; padding:20px;
+  animation:fadeIn .25s ease;
+}
+@keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
+.modal{
+  background:var(--card); border-radius:var(--radius-lg); padding:28px;
+  width:100%; max-width:440px; box-shadow:var(--shadow);
+  max-height:86vh; overflow-y:auto;
+  animation: fadeUp .3s ease;
+}
+.modal h3{font-size:18px; margin-bottom:16px;}
+.modal-actions{display:flex; justify-content:flex-end; gap:10px; margin-top:18px;}
+
+/* ============ PROGRESS ============ */
+.progress-bar{
+  height:9px; border-radius:20px; background:var(--sage-tint); overflow:hidden;
+}
+.progress-bar > div{
+  height:100%; border-radius:20px;
+  background: linear-gradient(90deg, var(--sage), var(--pink));
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+
+/* ============ HABITS ============ */
+.habit-row{
+  display:flex; align-items:center; gap:14px;
+  padding:13px 6px;
+  border-bottom:1px solid var(--border);
+}
+.habit-row:last-child{border-bottom:none;}
+.habit-check{
+  width:26px; height:26px; border-radius:50%;
+  border:2px solid var(--sand);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; flex-shrink:0;
+  transition: all .2s ease;
+  background:var(--card-soft);
+}
+.habit-check.done{background:var(--sage); border-color:var(--sage); color:#fff;}
+.habit-icon{font-size:17px; width:24px; text-align:center;}
+.habit-name{flex:1; font-size:14px;}
+.habit-streak{font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); white-space:nowrap;}
+
+/* ============ WEEK AGENDA ============ */
+.week-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:14px;}
+@media (max-width:1000px){.week-grid{grid-template-columns:repeat(2,1fr);}}
+.day-card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px; box-shadow:var(--shadow-sm); min-height:170px;}
+.day-card.today{border-color:var(--sage);}
+@media (max-width:720px){
+  .day-card{min-height:auto;}
+  .habit-check{width:30px; height:30px;}
+  .icon-btn{width:44px; height:44px;}
+  .modal-actions{flex-wrap:wrap;}
+  .modal-actions .btn{flex:1; justify-content:center;}
+  .nav-item{padding:13px 14px; font-size:15px;}
+}
+.day-card h4{font-size:13.5px; margin-bottom:4px;}
+.day-card .sub{font-family:var(--font-mono); font-size:10px; color:var(--ink-faint); margin-bottom:10px; display:block;}
+.day-card ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+.day-card li{font-size:12px; color:var(--ink-soft); display:flex; gap:6px; align-items:flex-start;}
+.day-card li::before{content:"·"; color:var(--pink-dark); font-weight:900;}
+
+/* ============ LISTS / TABLES ============ */
+.list-item{
+  display:flex; align-items:center; gap:14px;
+  padding:14px; border-radius:var(--radius-md);
+  background:var(--card-soft); border:1px solid var(--border);
+  margin-bottom:10px;
+}
+.list-item .meta{flex:1; min-width:0;}
+.list-item .meta h4{font-size:14.5px; margin-bottom:3px;}
+.list-item .meta p{font-size:12px; color:var(--ink-soft);}
+.pill{
+  font-family:var(--font-mono); font-size:10px; padding:4px 10px; border-radius:20px;
+  background:var(--sage-tint); color:var(--sage-dark); text-transform:uppercase; letter-spacing:.04em; white-space:nowrap;
+}
+.pill.pink{background:var(--pink-tint); color:#A2635B;}
+
+.bookshelf{display:flex; gap:14px; flex-wrap:wrap; margin-top:10px;}
+.book-spine{
+  width:46px; height:130px; border-radius:6px 10px 10px 6px;
+  display:flex; align-items:center; justify-content:center;
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:var(--font-display); font-size:11px; color:#fff;
+  padding:8px 4px; box-shadow:var(--shadow-sm);
+  cursor:default;
+}
+
+.badge-grid{display:flex; flex-wrap:wrap; gap:12px;}
+.badge{
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  width:96px; text-align:center; padding:14px 8px; border-radius:var(--radius-md);
+  border:1px solid var(--border); background:var(--card-soft);
+  opacity:.35; filter:grayscale(1);
+}
+.badge.unlocked{opacity:1; filter:none; background:linear-gradient(160deg, var(--sage-tint), var(--pink-tint)); border-color:var(--sage);}
+.badge .em{font-size:26px;}
+.badge span{font-size:10px; color:var(--ink-soft); line-height:1.3;}
+
+.chart-bars{display:flex; align-items:flex-end; gap:10px; height:120px; padding-top:10px;}
+.chart-bars .bar-wrap{flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end;}
+.chart-bars .bar{width:100%; border-radius:8px 8px 4px 4px; background:linear-gradient(180deg, var(--pink), var(--sage)); transition:height .5s ease;}
+.chart-bars .bar-lbl{font-size:10px; font-family:var(--font-mono); color:var(--ink-faint);}
+
+.empty-state{text-align:center; padding:30px 10px; color:var(--ink-soft); font-size:13px;}
+.empty-state .em{font-size:30px; display:block; margin-bottom:10px;}
+
+.toast{
+  position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:var(--bg); padding:12px 22px; border-radius:100px;
+  font-size:13px; opacity:0; pointer-events:none; transition:all .35s ease; z-index:200;
+  box-shadow:var(--shadow);
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+.menu-toggle{
+  display:none; width:40px; height:40px; border-radius:50%; border:1px solid var(--border);
+  background:var(--card); align-items:center; justify-content:center; cursor:pointer; font-size:16px;
+  position:fixed; top:20px; left:18px; z-index:50; box-shadow:var(--shadow-sm);
+}
+
+.section-title{margin-bottom:20px;}
+.section-title p{color:var(--ink-soft); font-size:13px; margin-top:4px;}
+
+.mt{margin-top:20px;}
+.mb{margin-bottom:20px;}
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle">☰</button>
+
+<div class="app">
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="mark">L</div>
+      <h1>Life Book</h1>
+      <span>Kamilli</span>
+    </div>
+
+    <nav id="navList">
+      <button class="nav-item active" data-page="dashboard"><span class="ic">🏠</span> Dashboard</button>
+      <button class="nav-item" data-page="agenda"><span class="ic">📅</span> Agenda Semanal</button>
+      <button class="nav-item" data-page="habitos"><span class="ic">✅</span> Hábitos</button>
+      <button class="nav-item" data-page="leitura"><span class="ic">📚</span> Leitura</button>
+      <button class="nav-item" data-page="series"><span class="ic">📺</span> Séries</button>
+      <button class="nav-item" data-page="filmes"><span class="ic">🎬</span> Filmes</button>
+      <button class="nav-item" data-page="relacionamentos"><span class="ic">❤️</span> Relacionamentos</button>
+      <button class="nav-item" data-page="autocuidado"><span class="ic">💆</span> Autocuidado</button>
+      <button class="nav-item" data-page="organizacao"><span class="ic">🏡</span> Organização</button>
+      <button class="nav-item" data-page="metas"><span class="ic">🎯</span> Metas</button>
+      <button class="nav-item" data-page="diario"><span class="ic">📖</span> Diário</button>
+      <button class="nav-item" data-page="revisao"><span class="ic">📈</span> Revisão Mensal</button>
+      <button class="nav-item" data-page="config"><span class="ic">⚙</span> Configurações</button>
+    </nav>
+
+    <div class="sidebar-foot">
+      "Consistência não é fazer tudo sempre.<br>Consistência é sempre voltar."
+    </div>
+  </aside>
+  <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+  <!-- ================= MAIN ================= -->
+  <main class="main">
+
+    <div class="topbar">
+      <div class="greet">
+        <h2 id="greetText">Olá, Kamilli</h2>
+        <p id="dateText"></p>
+      </div>
+      <div class="actions">
+        <button class="icon-btn" id="themeToggle" title="Alternar tema">🌙</button>
+        <button class="icon-btn" id="searchToggle" title="Pesquisar">🔍</button>
+      </div>
+    </div>
+
+    <!-- ============ DASHBOARD ============ -->
+    <section class="page" id="page-dashboard">
+      <div class="quote-block mb">
+        <p class="big">"Meu objetivo não é ser perfeita.<br>Meu objetivo é ser constante."</p>
+        <p class="small" id="motivationLine">Nunca deixe um dia ruim virar uma semana ruim.</p>
+      </div>
+
+      <div class="grid cols-4 mb">
+        <div class="card stat-card"><span class="eyebrow">Semana</span><div class="num" id="statWeekPct">0%</div><div class="lbl">progresso geral</div></div>
+        <div class="card stat-card"><span class="eyebrow">Hábitos</span><div class="num" id="statHabitsDone">0</div><div class="lbl">concluídos hoje</div></div>
+        <div class="card stat-card"><span class="eyebrow">Pendentes</span><div class="num" id="statPending">0</div><div class="lbl">tarefas de organização</div></div>
+        <div class="card stat-card"><span class="eyebrow">Leitura</span><div class="num" id="statBookPct">0%</div><div class="lbl" id="statBookTitle">sem livro ativo</div></div>
+      </div>
+
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>🌀 Anel da semana</h3>
+          <div class="rings-wrap">
+            <svg id="ringsSvg" width="150" height="150" viewBox="0 0 150 150"></svg>
+            <div class="rings-legend" id="ringsLegend"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>📖 Livro atual</h3>
+          <div id="dashBookBox"></div>
+        </div>
+
+        <div class="card">
+          <h3>🎯 Meta da semana</h3>
+          <div id="dashWeekGoalBox">
+            <textarea id="weekGoalInput" placeholder="Escreva a meta da sua semana..."></textarea>
+            <button class="btn primary sm mt" id="saveWeekGoal">Salvar meta</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid cols-2 mt">
+        <div class="card">
+          <h3>📅 Agenda de hoje</h3>
+          <div id="dashTodayAgenda"></div>
+        </div>
+        <div class="card">
+          <h3>✨ Próximo compromisso de autocuidado</h3>
+          <div id="dashNextSelfcare"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AGENDA ============ -->
+    <section class="page hidden" id="page-agenda">
+      <div class="section-title"><h2>Agenda Semanal</h2><p>Sua rotina, dia a dia — edite qualquer item quando quiser.</p></div>
+      <div class="week-grid" id="weekGrid"></div>
+    </section>
+
+    <!-- ============ HABITOS ============ -->
+    <section class="page hidden" id="page-habitos">
+      <div class="section-title"><h2>Hábitos</h2><p>Marque o que você cumpriu hoje. Sequências e porcentagem calculadas automaticamente.</p></div>
+      <div class="grid cols-3">
+        <div class="card" style="grid-column: span 2;">
+          <h3>Hoje · <span id="habitDateLabel"></span></h3>
+          <div id="habitList"></div>
+        </div>
+        <div class="card">
+          <h3>📊 Conclusão de hoje</h3>
+          <div class="num" style="font-family:var(--font-display); font-size:38px;" id="habitPctBig">0%</div>
+          <div class="progress-bar mt"><div id="habitPctBar" style="width:0%"></div></div>
+          <p style="font-size:12px; color:var(--ink-soft); margin-top:14px;">Maior sequência ativa</p>
+          <div id="topStreak" style="font-family:var(--font-mono); font-size:13px; margin-top:4px;">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEITURA ============ -->
+    <section class="page hidden" id="page-leitura">
+      <div class="section-title"><h2>Leitura</h2><p>Acompanhe seu livro atual e sua meta anual.</p></div>
+      <div class="grid cols-3 mb">
+        <div class="card"><span class="eyebrow">Meta anual</span><div class="num" id="booksGoalNum">0 / 6</div><div class="progress-bar mt"><div id="booksGoalBar"></div></div></div>
+        <div class="card"><span class="eyebrow">Livros concluídos</span><div class="num" id="booksDoneNum">0</div><div class="lbl">este ano</div></div>
+        <div class="card"><span class="eyebrow">Em andamento</span><div class="num" id="booksReadingNum">0</div><div class="lbl">livros ativos</div></div>
+      </div>
+      <div class="card mb">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h3 style="margin:0;">📚 Meus livros</h3>
+          <button class="btn primary sm" id="addBookBtn">+ Novo livro</button>
+        </div>
+        <div id="booksList"></div>
+      </div>
+      <div class="card">
+        <h3>🗄 Estante virtual</h3>
+        <div class="bookshelf" id="bookshelf"></div>
+      </div>
+    </section>
+
+    <!-- ============ SERIES ============ -->
+    <section class="page hidden" id="page-series">
+      <div class="section-title"><h2>Séries</h2><p>Temporadas, episódios e progresso.</p></div>
+      <div style="display:flex; justify-content:flex-end; margin-bottom:14px;">
+        <button class="btn primary sm" id="addSeriesBtn">+ Nova série</button>
+      </div>
+      <div id="seriesList" class="grid cols-2"></div>
+    </section>
+
+    <!-- ============ FILMES ============ -->
+    <section class="page hidden" id="page-filmes">
+      <div class="section-title"><h2>Filmes</h2><p>Meta de 2 filmes por mês — anote sua nota pessoal.</p></div>
+      <div class="grid cols-3 mb">
+        <div class="card"><span class="eyebrow">Este mês</span><div class="num" id="moviesMonthNum">0 / 2</div><div class="progress-bar mt"><div id="moviesMonthBar"></div></div></div>
+        <div class="card"><span class="eyebrow">Total assistidos</span><div class="num" id="moviesTotalNum">0</div><div class="lbl">no ano</div></div>
+        <div class="card"><span class="eyebrow">Nota média</span><div class="num" id="moviesAvgNum">—</div><div class="lbl">de 5 estrelas</div></div>
+      </div>
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h3 style="margin:0;">🎬 Assistidos</h3>
+          <button class="btn primary sm" id="addMovieBtn">+ Adicionar filme</button>
+        </div>
+        <div id="moviesList"></div>
+      </div>
+    </section>
+
+    <!-- ============ RELACIONAMENTOS ============ -->
+    <section class="page hidden" id="page-relacionamentos">
+      <div class="section-title"><h2>Relacionamentos</h2><p>Registre momentos e veja há quanto tempo não encontra cada pessoa.</p></div>
+      <div style="display:flex; justify-content:flex-end; margin-bottom:14px;">
+        <button class="btn primary sm" id="addRelLogBtn">+ Registrar momento</button>
+      </div>
+      <div class="grid cols-4" id="relCategoriesGrid"></div>
+      <div class="card mt">
+        <h3>🕰 Últimos registros</h3>
+        <div id="relLogList"></div>
+      </div>
+    </section>
+
+    <!-- ============ AUTOCUIDADO ============ -->
+    <section class="page hidden" id="page-autocuidado">
+      <div class="section-title"><h2>Autocuidado</h2><p>Seus rituais e a próxima data prevista para cada um.</p></div>
+      <div class="grid cols-2" id="selfcareList"></div>
+    </section>
+
+    <!-- ============ ORGANIZACAO ============ -->
+    <section class="page hidden" id="page-organizacao">
+      <div class="section-title"><h2>Organização</h2><p>Checklist da casa e da rotina.</p></div>
+      <div class="card">
+        <div id="orgList"></div>
+        <div style="display:flex; gap:8px; margin-top:14px;">
+          <input type="text" id="orgNewInput" placeholder="Adicionar item...">
+          <button class="btn primary sm" id="orgAddBtn">Adicionar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ METAS ============ -->
+    <section class="page hidden" id="page-metas">
+      <div class="section-title"><h2>Metas</h2><p>Saúde, leitura, tempo de tela, relacionamentos, autocuidado e organização.</p></div>
+      <div style="display:flex; justify-content:flex-end; margin-bottom:14px;">
+        <button class="btn primary sm" id="addGoalBtn">+ Nova meta</button>
+      </div>
+      <div id="goalsList" class="grid cols-2"></div>
+    </section>
+
+    <!-- ============ DIARIO ============ -->
+    <section class="page hidden" id="page-diario">
+      <div class="section-title"><h2>Diário</h2><p>Escreva livremente e registre momentos bons.</p></div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>✍️ Nova entrada</h3>
+          <textarea id="journalInput" placeholder="Como foi o seu dia?" style="min-height:140px;"></textarea>
+          <button class="btn primary sm mt" id="journalAddBtn">Salvar entrada</button>
+          <h3 class="mt">🗂 Entradas anteriores</h3>
+          <div id="journalList"></div>
+        </div>
+        <div class="card">
+          <h3>✨ Momentos bons</h3>
+          <div style="display:flex; gap:8px; margin-bottom:14px;">
+            <input type="text" id="momentInput" placeholder="Ex: Terminei um livro.">
+            <button class="btn primary sm" id="momentAddBtn">+</button>
+          </div>
+          <div id="momentsList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REVISAO ============ -->
+    <section class="page hidden" id="page-revisao">
+      <div class="section-title"><h2>Revisão Mensal</h2><p>Um momento para olhar para trás e planejar o próximo mês.</p></div>
+      <div class="grid cols-3 mb">
+        <div class="card stat-card"><span class="eyebrow">Dias treinados</span><div class="num" id="revTreino">0</div><div class="lbl">este mês</div></div>
+        <div class="card stat-card"><span class="eyebrow">Dias de leitura</span><div class="num" id="revLeitura">0</div><div class="lbl">este mês</div></div>
+        <div class="card stat-card"><span class="eyebrow">Hábitos concluídos</span><div class="num" id="revHabitos">0</div><div class="lbl">total este mês</div></div>
+        <div class="card stat-card"><span class="eyebrow">Livros</span><div class="num" id="revLivros">0</div><div class="lbl">concluídos no ano</div></div>
+        <div class="card stat-card"><span class="eyebrow">Filmes</span><div class="num" id="revFilmes">0</div><div class="lbl">assistidos no ano</div></div>
+        <div class="card stat-card"><span class="eyebrow">Séries</span><div class="num" id="revSeries">0</div><div class="lbl">em acompanhamento</div></div>
+      </div>
+      <div class="card">
+        <h3>📝 Perguntas do mês</h3>
+        <div class="field"><label>Do que tenho orgulho?</label><textarea id="revProud"></textarea></div>
+        <div class="field"><label>O que posso melhorar?</label><textarea id="revImprove"></textarea></div>
+        <div class="field"><label>O que funcionou?</label><textarea id="revWorked"></textarea></div>
+        <div class="field"><label>O que não funcionou?</label><textarea id="revNotWorked"></textarea></div>
+        <div class="field"><label>O que quero manter?</label><textarea id="revKeep"></textarea></div>
+        <div class="field"><label>Meta para o próximo mês</label><textarea id="revNextGoal"></textarea></div>
+        <button class="btn primary sm" id="revSaveBtn">Salvar revisão de <span id="revMonthLabel"></span></button>
+        <h3 class="mt">📜 Revisões anteriores</h3>
+        <div id="revHistory"></div>
+      </div>
+    </section>
+
+    <!-- ============ CONFIG ============ -->
+    <section class="page hidden" id="page-config">
+      <div class="section-title"><h2>Configurações</h2><p>Aparência, tempo de tela e dados.</p></div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>🎨 Aparência</h3>
+          <p style="font-size:13px; color:var(--ink-soft); margin-bottom:12px;">Escolha entre modo claro e escuro.</p>
+          <div style="display:flex; gap:10px;">
+            <button class="btn sm" id="themeLightBtn">☀️ Claro</button>
+            <button class="btn sm" id="themeDarkBtn">🌙 Escuro</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>📱 Tempo de tela — TikTok</h3>
+          <div class="field">
+            <label>Meta diária (minutos)</label>
+            <input type="number" id="screenGoalInput" min="0">
+          </div>
+          <div class="field">
+            <label>Minutos de hoje</label>
+            <input type="number" id="screenTodayInput" min="0">
+          </div>
+          <button class="btn primary sm" id="screenSaveBtn">Salvar</button>
+          <div class="chart-bars mt" id="screenChart"></div>
+        </div>
+        <div class="card">
+          <h3>🏆 Conquistas</h3>
+          <div class="badge-grid" id="badgeGrid"></div>
+        </div>
+        <div class="card">
+          <h3>🗃 Dados</h3>
+          <p style="font-size:13px; color:var(--ink-soft); margin-bottom:14px;">Seus dados ficam salvos automaticamente neste navegador (localStorage).</p>
+          <button class="btn danger sm" id="resetDataBtn">Apagar todos os dados</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   LIFE BOOK — app state & logic
+   ===================================================================== */
+const STORAGE_KEY = 'lifebook_kamilli_v1';
+
+const DEFAULT_STATE = {
+  settings:{ theme:'light', name:'Kamilli', weekGoal:'' },
+  habits:[
+    {id:'agua', name:'Beber água', icon:'💧'},
+    {id:'ler', name:'Ler', icon:'📚'},
+    {id:'academia', name:'Academia', icon:'🏋'},
+    {id:'pilates', name:'Pilates', icon:'🧘'},
+    {id:'skin_am', name:'Skincare manhã', icon:'✨'},
+    {id:'skin_pm', name:'Skincare noite', icon:'🌙'},
+    {id:'hidratar', name:'Hidratar corpo', icon:'🧴'},
+    {id:'cama', name:'Arrumar cama', icon:'🛏'},
+    {id:'alimentacao', name:'Alimentação saudável', icon:'🥗'},
+    {id:'dormir', name:'Dormir antes das 23h', icon:'😴'}
+  ],
+  habitLog:{}, // {'YYYY-MM-DD': {habitId: true}}
+  books:[
+    {id:'b1', title:'Os Sete Maridos de Evelyn Hugo', author:'Taylor Jenkins Reid', pages:360, current:202, status:'lendo'}
+  ],
+  booksGoal:6,
+  series:[
+    {id:'s1', title:'Desperate Housewives', status:'Em andamento', seasons:[{season:1, watched:0, total:23}]}
+  ],
+  movies:[],
+  moviesGoal:2,
+  relationships:[
+    {id:'r_namorado', name:'Namorado', category:'❤️ Namorado', icon:'❤️'},
+    {id:'r_cafe', name:'Cafés', category:'☕ Cafés', icon:'☕'},
+    {id:'r_jantar', name:'Jantares', category:'🍝 Jantares', icon:'🍝'},
+    {id:'r_amigos', name:'Amigos', category:'👯 Amigos', icon:'👯'},
+    {id:'r_familia', name:'Família', category:'👨‍👩‍👧 Família', icon:'👨‍👩‍👧'}
+  ],
+  relLogs:[], // {id, relId, date, note}
+  selfcare:[
+    {id:'unha', name:'Unha', icon:'💅', intervalDays:19, lastDone:null, note:'Preferência: quarta-feira às 18:15'},
+    {id:'sobrancelha', name:'Sobrancelha', icon:'👁', intervalDays:30, lastDone:null, note:'Mensal'},
+    {id:'depilacao', name:'Depilação', icon:'🪒', intervalDays:21, lastDone:null, note:'Personalizável'},
+    {id:'hidratacao', name:'Hidratação capilar', icon:'💇', intervalDays:7, lastDone:null, note:'Semanal'},
+    {id:'mascara', name:'Máscara facial', icon:'🧖', intervalDays:4, lastDone:null, note:'1 a 2x por semana'}
+  ],
+  organization:[
+    {id:'o1', name:'Quarto organizado', done:false},
+    {id:'o2', name:'Guarda-roupa', done:false},
+    {id:'o3', name:'Casa', done:false},
+    {id:'o4', name:'Carro limpo', done:false},
+    {id:'o5', name:'Preparar marmitas', done:false},
+    {id:'o6', name:'Trocar roupa de cama', done:false},
+    {id:'o7', name:'Limpar pincéis', done:false}
+  ],
+  goals:[],
+  journal:[],
+  moments:[],
+  monthlyReviews:[],
+  screenTime:{ goalMinutes:60, log:{} },
+  badges:{}, // id: true
+  weekAgenda:{
+    seg:{label:'Segunda', sub:'Academia · Trabalho', items:['06:00 Acordar','06:20 Academia','07:30 Banho','07:40 Skincare','08:00 Trabalho','20:00 Leitura','21:00 Série','22:15 Dormir']},
+    ter:{label:'Terça', sub:'Trabalho · Pilates', items:['08:00 Trabalho','19:00 Pilates','Leitura','Dormir cedo']},
+    qua:{label:'Quarta', sub:'Academia · Trabalho', items:['Academia','Trabalho','Unha (quando houver)','Leitura']},
+    qui:{label:'Quinta', sub:'Trabalho', items:['Trabalho','Organizar quarto','Leitura','Série']},
+    sex:{label:'Sexta', sub:'Academia · Trabalho', items:['Academia','Trabalho (até 17h)','Noite com namorado']},
+    sab:{label:'Sábado', sub:'Casa · Amigos', items:['Mercado','Lavar carro (quando necessário)','Hidratação capilar','Amigos','Filme']},
+    dom:{label:'Domingo', sub:'Preparação da semana', items:['Preparar marmitas','Separar roupas','Organizar quarto','Leitura','Dormir cedo']}
+  }
+};
+
+const MOTIVATIONS = [
+  'Nunca deixe um dia ruim virar uma semana ruim.',
+  'Se hoje você não treinou, treine amanhã.',
+  'Se hoje não leu, leia amanhã.',
+  'Se hoje passou mais tempo no celular do que gostaria, recomece amanhã.',
+  'Consistência não é fazer tudo sempre. Consistência é sempre voltar.'
+];
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      return deepMerge(structuredClone(DEFAULT_STATE), parsed);
+    }
+  }catch(e){ console.warn('LocalStorage indisponível neste preview — usando memória da sessão.', e); }
+  return structuredClone(DEFAULT_STATE);
+}
+function deepMerge(base, incoming){
+  if(!incoming) return base;
+  for(const key in base){
+    if(incoming[key] === undefined) continue;
+    if(typeof base[key]==='object' && base[key]!==null && !Array.isArray(base[key]) && typeof incoming[key]==='object'){
+      base[key] = deepMerge(base[key], incoming[key]);
+    } else {
+      base[key] = incoming[key];
+    }
+  }
+  return base;
+}
+
+let state = loadState();
+
+function saveState(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }catch(e){
+    console.warn('Não foi possível salvar no localStorage neste ambiente. Os dados persistem apenas durante esta sessão.', e);
+  }
+}
+
+function todayKey(d = new Date()){
+  return d.toISOString().slice(0,10);
+}
+function fmtDate(d){
+  return d.toLocaleDateString('pt-BR', {weekday:'long', day:'2-digit', month:'long'});
+}
+function daysBetween(a,b){
+  return Math.round((b-a)/86400000);
+}
+function uid(prefix='id'){ return prefix+'_'+Math.random().toString(36).slice(2,9); }
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._tm);
+  showToast._tm = setTimeout(()=> t.classList.remove('show'), 2200);
+}
+
+/* ============ THEME ============ */
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', state.settings.theme);
+  document.getElementById('themeToggle').textContent = state.settings.theme === 'dark' ? '☀️' : '🌙';
+}
+document.getElementById('themeToggle').addEventListener('click', ()=>{
+  state.settings.theme = state.settings.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(); saveState();
+});
+
+/* ============ NAV ============ */
+const pages = ['dashboard','agenda','habitos','leitura','series','filmes','relacionamentos','autocuidado','organizacao','metas','diario','revisao','config'];
+function goPage(name){
+  pages.forEach(p=>{
+    document.getElementById('page-'+p).classList.toggle('hidden', p!==name);
+  });
+  document.querySelectorAll('.nav-item').forEach(el=>{
+    el.classList.toggle('active', el.dataset.page===name);
+  });
+  setSidebarOpen(false);
+  renderPage(name);
+}
+document.querySelectorAll('.nav-item').forEach(el=>{
+  el.addEventListener('click', ()=> goPage(el.dataset.page));
+});
+function setSidebarOpen(open){
+  document.getElementById('sidebar').classList.toggle('open', open);
+  document.getElementById('sidebarScrim').classList.toggle('show', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+document.getElementById('menuToggle').addEventListener('click', ()=>{
+  setSidebarOpen(!document.getElementById('sidebar').classList.contains('open'));
+});
+document.getElementById('sidebarScrim').addEventListener('click', ()=> setSidebarOpen(false));
+
+function renderPage(name){
+  if(name==='dashboard') renderDashboard();
+  if(name==='agenda') renderAgenda();
+  if(name==='habitos') renderHabits();
+  if(name==='leitura') renderBooks();
+  if(name==='series') renderSeries();
+  if(name==='filmes') renderMovies();
+  if(name==='relacionamentos') renderRelationships();
+  if(name==='autocuidado') renderSelfcare();
+  if(name==='organizacao') renderOrganization();
+  if(name==='metas') renderGoals();
+  if(name==='diario') renderJournal();
+  if(name==='revisao') renderReview();
+  if(name==='config') renderConfig();
+}
+
+/* ============ HEADER ============ */
+function renderHeader(){
+  const now = new Date();
+  document.getElementById('greetText').textContent = `Olá, ${state.settings.name}`;
+  const hh = now.getHours().toString().padStart(2,'0');
+  const mm = now.getMinutes().toString().padStart(2,'0');
+  document.getElementById('dateText').textContent = `${capitalize(fmtDate(now))} · ${hh}:${mm}`;
+}
+function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+setInterval(renderHeader, 30000);
+
+/* ============ HABITS LOGIC ============ */
+function habitsForDate(dateKey){
+  return state.habitLog[dateKey] || {};
+}
+function toggleHabit(habitId, dateKey=todayKey()){
+  if(!state.habitLog[dateKey]) state.habitLog[dateKey] = {};
+  state.habitLog[dateKey][habitId] = !state.habitLog[dateKey][habitId];
+  saveState();
+  checkBadges();
+  renderPage(currentPageName());
+}
+function currentPageName(){
+  return pages.find(p=> !document.getElementById('page-'+p).classList.contains('hidden')) || 'dashboard';
+}
+function habitStreak(habitId){
+  let streak=0;
+  let d = new Date();
+  while(true){
+    const key = todayKey(d);
+    const log = state.habitLog[key];
+    if(log && log[habitId]){
+      streak++;
+      d.setDate(d.getDate()-1);
+    } else {
+      // allow today to be unchecked without breaking a streak counted from yesterday
+      if(key===todayKey() ){ d.setDate(d.getDate()-1); continue; }
+      break;
+    }
+  }
+  return streak;
+}
+function renderHabits(){
+  document.getElementById('habitDateLabel').textContent = capitalize(fmtDate(new Date()));
+  const log = habitsForDate(todayKey());
+  const list = document.getElementById('habitList');
+  list.innerHTML = '';
+  let doneCount=0;
+  let topStreak=0, topStreakName='';
+  state.habits.forEach(h=>{
+    const done = !!log[h.id];
+    if(done) doneCount++;
+    const streak = habitStreak(h.id);
+    if(streak>topStreak){ topStreak=streak; topStreakName=h.name; }
+    const row = document.createElement('div');
+    row.className='habit-row';
+    row.innerHTML = `
+      <div class="habit-check ${done?'done':''}" data-id="${h.id}">${done?'✓':''}</div>
+      <div class="habit-icon">${h.icon}</div>
+      <div class="habit-name">${h.name}</div>
+      <div class="habit-streak">${streak>0? '🔥 '+streak+'d' : ''}</div>
+    `;
+    row.querySelector('.habit-check').addEventListener('click', ()=> toggleHabit(h.id));
+    list.appendChild(row);
+  });
+  const pct = state.habits.length? Math.round(doneCount/state.habits.length*100) : 0;
+  document.getElementById('habitPctBig').textContent = pct+'%';
+  document.getElementById('habitPctBar').style.width = pct+'%';
+  document.getElementById('topStreak').textContent = topStreak>0 ? `${topStreakName} · ${topStreak} dias` : 'Comece hoje!';
+}
+
+/* ============ WEEK PROGRESS (rings) ============ */
+function weekRange(){
+  const now = new Date();
+  const day = now.getDay(); // 0 sun
+  const diffToMon = (day===0? -6 : 1-day);
+  const monday = new Date(now); monday.setDate(now.getDate()+diffToMon); monday.setHours(0,0,0,0);
+  const days=[];
+  for(let i=0;i<7;i++){ const d=new Date(monday); d.setDate(monday.getDate()+i); days.push(d); }
+  return days;
+}
+function weekHabitPct(){
+  const days = weekRange();
+  let total=0, done=0;
+  days.forEach(d=>{
+    const key = todayKey(d);
+    if(d>new Date()) return;
+    const log = state.habitLog[key]||{};
+    state.habits.forEach(h=>{ total++; if(log[h.id]) done++; });
+  });
+  return total? Math.round(done/total*100) : 0;
+}
+function weekReadingPct(){
+  const days = weekRange();
+  let readDays=0, elapsed=0;
+  days.forEach(d=>{
+    if(d>new Date()) return;
+    elapsed++;
+    const key = todayKey(d);
+    const log = state.habitLog[key]||{};
+    if(log['ler']) readDays++;
+  });
+  return elapsed? Math.round(readDays/elapsed*100) : 0;
+}
+function weekWorkoutPct(){
+  const days = weekRange();
+  let workDays=0;
+  days.forEach(d=>{
+    if(d>new Date()) return;
+    const key = todayKey(d);
+    const log = state.habitLog[key]||{};
+    if(log['academia'] || log['pilates']) workDays++;
+  });
+  return Math.min(100, Math.round(workDays/4*100));
+}
+function renderRings(){
+  const rings = [
+    {pct: weekHabitPct(), color:'var(--sage)', label:'Hábitos', name:'sage'},
+    {pct: weekReadingPct(), color:'var(--pink)', label:'Leitura', name:'pink'},
+    {pct: weekWorkoutPct(), color:'var(--sand)', label:'Treinos', name:'sand'}
+  ];
+  const svg = document.getElementById('ringsSvg');
+  const cx=75, cy=75;
+  const radii = [62, 46, 30];
+  const colorMap = {sage:getComputedStyle(document.documentElement).getPropertyValue('--sage').trim(),
+                     pink:getComputedStyle(document.documentElement).getPropertyValue('--pink').trim(),
+                     sand:getComputedStyle(document.documentElement).getPropertyValue('--sand').trim()};
+  let svgContent = '';
+  rings.forEach((r,i)=>{
+    const radius = radii[i];
+    const circumference = 2*Math.PI*radius;
+    const offset = circumference * (1 - r.pct/100);
+    const color = colorMap[r.name];
+    svgContent += `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="${color}22" stroke-width="9"/>`;
+    svgContent += `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="${color}" stroke-width="9" stroke-linecap="round"
+      stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" transform="rotate(-90 ${cx} ${cy})"
+      style="transition: stroke-dashoffset .8s cubic-bezier(.4,0,.2,1)"/>`;
+  });
+  svg.innerHTML = svgContent;
+  const legend = document.getElementById('ringsLegend');
+  legend.innerHTML = rings.map(r=>`
+    <div class="legend-row"><span class="legend-dot" style="background:${colorMap[r.name]}"></span>${r.label}<b>${r.pct}%</b></div>
+  `).join('');
+}
+
+/* ============ DASHBOARD ============ */
+function renderDashboard(){
+  renderHeader();
+  document.getElementById('motivationLine').textContent = MOTIVATIONS[new Date().getDate() % MOTIVATIONS.length];
+  const weekPct = Math.round((weekHabitPct()+weekReadingPct()+weekWorkoutPct())/3);
+  document.getElementById('statWeekPct').textContent = weekPct+'%';
+  const log = habitsForDate(todayKey());
+  const doneCount = state.habits.filter(h=>log[h.id]).length;
+  document.getElementById('statHabitsDone').textContent = doneCount+'/'+state.habits.length;
+  const pendingOrg = state.organization.filter(o=>!o.done).length;
+  document.getElementById('statPending').textContent = pendingOrg;
+
+  const activeBook = state.books.find(b=>b.status==='lendo');
+  if(activeBook){
+    const pct = Math.round(activeBook.current/activeBook.pages*100);
+    document.getElementById('statBookPct').textContent = pct+'%';
+    document.getElementById('statBookTitle').textContent = activeBook.title;
+  } else {
+    document.getElementById('statBookPct').textContent = '—';
+    document.getElementById('statBookTitle').textContent = 'sem livro ativo';
+  }
+
+  renderRings();
+
+  const bookBox = document.getElementById('dashBookBox');
+  if(activeBook){
+    const pct = Math.round(activeBook.current/activeBook.pages*100);
+    bookBox.innerHTML = `
+      <p style="font-family:var(--font-display); font-size:17px; margin-bottom:4px;">${activeBook.title}</p>
+      <p style="font-size:12px; color:var(--ink-soft); margin-bottom:12px;">${activeBook.author||''}</p>
+      <div class="progress-bar"><div style="width:${pct}%"></div></div>
+      <p style="font-size:12px; color:var(--ink-soft); margin-top:8px;">${activeBook.current} de ${activeBook.pages} páginas · ${pct}% lido · faltam ${activeBook.pages-activeBook.current}</p>
+    `;
+  } else {
+    bookBox.innerHTML = `<div class="empty-state"><span class="em">📖</span>Nenhum livro em leitura no momento.</div>`;
+  }
+
+  document.getElementById('weekGoalInput').value = state.settings.weekGoal || '';
+
+  const todayIdx = new Date().getDay(); // 0 sun..6 sat
+  const map = ['dom','seg','ter','qua','qui','sex','sab'];
+  const todayAgenda = state.weekAgenda[map[todayIdx]];
+  const agendaBox = document.getElementById('dashTodayAgenda');
+  agendaBox.innerHTML = `<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;">` +
+    todayAgenda.items.map(it=>`<li style="font-size:13px; display:flex; gap:8px;"><span style="color:var(--sage-dark)">·</span>${it}</li>`).join('') +
+    `</ul>`;
+
+  const nextSelfcare = getNextSelfcare();
+  const scBox = document.getElementById('dashNextSelfcare');
+  if(nextSelfcare){
+    scBox.innerHTML = `
+      <p style="font-family:var(--font-display); font-size:17px;">${nextSelfcare.icon} ${nextSelfcare.name}</p>
+      <p style="font-size:12.5px; color:var(--ink-soft); margin-top:6px;">${nextSelfcare.dueText}</p>
+    `;
+  } else {
+    scBox.innerHTML = `<div class="empty-state"><span class="em">💆</span>Nada agendado ainda.</div>`;
+  }
+}
+document.getElementById('saveWeekGoal').addEventListener('click', ()=>{
+  state.settings.weekGoal = document.getElementById('weekGoalInput').value;
+  saveState(); showToast('Meta da semana salva ✨');
+});
+
+/* ============ AGENDA ============ */
+function renderAgenda(){
+  const order = ['seg','ter','qua','qui','sex','sab','dom'];
+  const grid = document.getElementById('weekGrid');
+  grid.innerHTML='';
+  const todayIdx = new Date().getDay();
+  const map = ['dom','seg','ter','qua','qui','sex','sab'];
+  const todayKeyName = map[todayIdx];
+  order.forEach(key=>{
+    const day = state.weekAgenda[key];
+    const card = document.createElement('div');
+    card.className = 'day-card'+(key===todayKeyName?' today':'');
+    card.innerHTML = `
+      <h4>${day.label}</h4>
+      <span class="sub">${day.sub}</span>
+      <ul>${day.items.map((it,idx)=>`<li data-day="${key}" data-idx="${idx}">${it}</li>`).join('')}</ul>
+      <button class="btn sm ghost mt" data-add="${key}" style="width:100%; margin-top:10px;">+ item</button>
+    `;
+    grid.appendChild(card);
+  });
+  grid.querySelectorAll('li').forEach(li=>{
+    li.style.cursor='pointer';
+    li.addEventListener('click', ()=>{
+      const day = li.dataset.day, idx = +li.dataset.idx;
+      const cur = state.weekAgenda[day].items[idx];
+      const val = prompt('Editar item (deixe vazio para remover):', cur);
+      if(val===null) return;
+      if(val.trim()===''){
+        state.weekAgenda[day].items.splice(idx,1);
+      } else {
+        state.weekAgenda[day].items[idx] = val.trim();
+      }
+      saveState(); renderAgenda();
+    });
+  });
+  grid.querySelectorAll('[data-add]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const val = prompt('Novo item para '+state.weekAgenda[btn.dataset.add].label+':');
+      if(val && val.trim()){
+        state.weekAgenda[btn.dataset.add].items.push(val.trim());
+        saveState(); renderAgenda();
+      }
+    });
+  });
+}
+
+/* ============ BOOKS ============ */
+function renderBooks(){
+  const goalDone = state.books.filter(b=>b.status==='concluido').length;
+  document.getElementById('booksGoalNum').textContent = `${goalDone} / ${state.booksGoal}`;
+  document.getElementById('booksGoalBar').style.width = Math.min(100, Math.round(goalDone/state.booksGoal*100))+'%';
+  document.getElementById('booksDoneNum').textContent = goalDone;
+  document.getElementById('booksReadingNum').textContent = state.books.filter(b=>b.status==='lendo').length;
+
+  const list = document.getElementById('booksList');
+  if(state.books.length===0){
+    list.innerHTML = `<div class="empty-state"><span class="em">📚</span>Nenhum livro adicionado ainda.</div>`;
+  } else {
+    list.innerHTML = state.books.map(b=>{
+      const pct = Math.min(100, Math.round((b.current/b.pages)*100)) || 0;
+      return `
+      <div class="list-item">
+        <div class="meta">
+          <h4>${b.title}</h4>
+          <p>${b.author||'Autor não informado'} · ${b.current}/${b.pages} páginas · ${pct}%</p>
+          <div class="progress-bar mt" style="max-width:260px;"><div style="width:${pct}%"></div></div>
+        </div>
+        <span class="pill ${b.status==='concluido'?'':'pink'}">${b.status==='lendo'?'Lendo':b.status==='concluido'?'Concluído':'Quero ler'}</span>
+        <button class="btn sm ghost" data-edit-book="${b.id}">✎</button>
+        <button class="btn sm ghost" data-del-book="${b.id}">🗑</button>
+      </div>`;
+    }).join('');
+  }
+  document.querySelectorAll('[data-edit-book]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openBookModal(state.books.find(b=>b.id===btn.dataset.editBook)));
+  });
+  document.querySelectorAll('[data-del-book]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(confirm('Remover este livro?')){
+        state.books = state.books.filter(b=>b.id!==btn.dataset.delBook);
+        saveState(); renderBooks();
+      }
+    });
+  });
+
+  const shelf = document.getElementById('bookshelf');
+  const done = state.books.filter(b=>b.status==='concluido');
+  const spineColors = ['var(--sage)','var(--pink)','var(--sand)','var(--sage-dark)','var(--pink-dark)'];
+  shelf.innerHTML = done.length? done.map((b,i)=>`<div class="book-spine" style="background:${spineColors[i%spineColors.length]}" title="${b.title}">${b.title}</div>`).join('')
+    : `<div class="empty-state"><span class="em">🗄</span>Sua estante vai se preencher conforme você concluir livros.</div>`;
+}
+document.getElementById('addBookBtn').addEventListener('click', ()=> openBookModal(null));
+function openBookModal(book){
+  const isEdit = !!book;
+  const modal = buildModal(`
+    <h3>${isEdit? 'Editar livro' : 'Novo livro'}</h3>
+    <div class="field"><label>Título</label><input id="mBookTitle" value="${book?escapeHtml(book.title):''}"></div>
+    <div class="field"><label>Autor</label><input id="mBookAuthor" value="${book?escapeHtml(book.author||''):''}"></div>
+    <div class="field"><label>Número de páginas</label><input type="number" id="mBookPages" value="${book?book.pages:''}"></div>
+    <div class="field"><label>Página atual</label><input type="number" id="mBookCurrent" value="${book?book.current:0}"></div>
+    <div class="field"><label>Status</label>
+      <select id="mBookStatus">
+        <option value="quero" ${book&&book.status==='quero'?'selected':''}>Quero ler</option>
+        <option value="lendo" ${!book||book.status==='lendo'?'selected':''}>Lendo</option>
+        <option value="concluido" ${book&&book.status==='concluido'?'selected':''}>Concluído</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close>Cancelar</button>
+      <button class="btn primary" id="mBookSave">Salvar</button>
+    </div>
+  `);
+  modal.querySelector('#mBookSave').addEventListener('click', ()=>{
+    const title = modal.querySelector('#mBookTitle').value.trim();
+    if(!title) return showToast('Digite um título.');
+    const data = {
+      title,
+      author: modal.querySelector('#mBookAuthor').value.trim(),
+      pages: +modal.querySelector('#mBookPages').value || 1,
+      current: +modal.querySelector('#mBookCurrent').value || 0,
+      status: modal.querySelector('#mBookStatus').value
+    };
+    if(isEdit){ Object.assign(book, data); }
+    else { state.books.push({id:uid('book'), ...data}); }
+    saveState(); closeModal(); renderBooks(); checkBadges();
+  });
+}
+
+/* ============ SERIES ============ */
+function renderSeries(){
+  const list = document.getElementById('seriesList');
+  if(state.series.length===0){
+    list.innerHTML = `<div class="empty-state"><span class="em">📺</span>Nenhuma série adicionada.</div>`;
+    return;
+  }
+  list.innerHTML = state.series.map(s=>{
+    const totalEp = s.seasons.reduce((a,se)=>a+se.total,0);
+    const watchedEp = s.seasons.reduce((a,se)=>a+se.watched,0);
+    const pct = totalEp? Math.round(watchedEp/totalEp*100):0;
+    return `
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <h3 style="margin-bottom:4px;">📺 ${s.title}</h3>
+        <button class="btn sm ghost" data-del-series="${s.id}">🗑</button>
+      </div>
+      <span class="pill">${s.status}</span>
+      <div class="progress-bar mt"><div style="width:${pct}%"></div></div>
+      <p style="font-size:12px; color:var(--ink-soft); margin-top:8px;">${watchedEp}/${totalEp} episódios · ${pct}%</p>
+      ${s.seasons.map((se,i)=>`
+        <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+          <span style="font-size:12px; width:70px;">Temp. ${se.season}</span>
+          <input type="number" min="0" max="${se.total}" value="${se.watched}" style="width:70px;" data-series="${s.id}" data-season="${i}" class="seasonInput">
+          <span style="font-size:11px; color:var(--ink-soft);">/ ${se.total} ep.</span>
+        </div>
+      `).join('')}
+      <button class="btn sm ghost mt" data-add-season="${s.id}">+ temporada</button>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('.seasonInput').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      const s = state.series.find(x=>x.id===inp.dataset.series);
+      s.seasons[+inp.dataset.season].watched = Math.min(+inp.value, s.seasons[+inp.dataset.season].total);
+      saveState(); renderSeries(); checkBadges();
+    });
+  });
+  list.querySelectorAll('[data-add-season]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const s = state.series.find(x=>x.id===btn.dataset.addSeason);
+      const total = +prompt('Quantos episódios tem essa temporada?', '10') || 10;
+      s.seasons.push({season:s.seasons.length+1, watched:0, total});
+      saveState(); renderSeries();
+    });
+  });
+  list.querySelectorAll('[data-del-series]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(confirm('Remover esta série?')){
+        state.series = state.series.filter(s=>s.id!==btn.dataset.delSeries);
+        saveState(); renderSeries();
+      }
+    });
+  });
+}
+document.getElementById('addSeriesBtn').addEventListener('click', ()=>{
+  const modal = buildModal(`
+    <h3>Nova série</h3>
+    <div class="field"><label>Título</label><input id="mSeriesTitle"></div>
+    <div class="field"><label>Status</label>
+      <select id="mSeriesStatus">
+        <option>Em andamento</option><option>Concluída</option><option>Quero assistir</option>
+      </select>
+    </div>
+    <div class="field"><label>Episódios da 1ª temporada</label><input type="number" id="mSeriesEp" value="10"></div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close>Cancelar</button>
+      <button class="btn primary" id="mSeriesSave">Adicionar</button>
+    </div>
+  `);
+  modal.querySelector('#mSeriesSave').addEventListener('click', ()=>{
+    const title = modal.querySelector('#mSeriesTitle').value.trim();
+    if(!title) return showToast('Digite um título.');
+    state.series.push({id:uid('series'), title, status:modal.querySelector('#mSeriesStatus').value,
+      seasons:[{season:1, watched:0, total:+modal.querySelector('#mSeriesEp').value || 10}]});
+    saveState(); closeModal(); renderSeries();
+  });
+});
+
+/* ============ MOVIES ============ */
+function renderMovies(){
+  const now = new Date();
+  const thisMonthMovies = state.movies.filter(m=> m.date && m.date.slice(0,7)===now.toISOString().slice(0,7));
+  document.getElementById('moviesMonthNum').textContent = `${thisMonthMovies.length} / ${state.moviesGoal}`;
+  document.getElementById('moviesMonthBar').style.width = Math.min(100, Math.round(thisMonthMovies.length/state.moviesGoal*100))+'%';
+  document.getElementById('moviesTotalNum').textContent = state.movies.length;
+  const avg = state.movies.length? (state.movies.reduce((a,m)=>a+(m.rating||0),0)/state.movies.length).toFixed(1) : '—';
+  document.getElementById('moviesAvgNum').textContent = avg;
+
+  const list = document.getElementById('moviesList');
+  if(state.movies.length===0){
+    list.innerHTML = `<div class="empty-state"><span class="em">🎬</span>Nenhum filme registrado ainda.</div>`;
+  } else {
+    list.innerHTML = [...state.movies].sort((a,b)=> (b.date||'').localeCompare(a.date||'')).map(m=>`
+      <div class="list-item">
+        <div class="meta">
+          <h4>${m.title}</h4>
+          <p>${m.date? new Date(m.date+'T00:00').toLocaleDateString('pt-BR'):''} ${m.note? '· '+escapeHtml(m.note):''}</p>
+        </div>
+        <span class="pill pink">${'★'.repeat(m.rating||0)}${'☆'.repeat(5-(m.rating||0))}</span>
+        <button class="btn sm ghost" data-del-movie="${m.id}">🗑</button>
+      </div>`).join('');
+  }
+  list.querySelectorAll('[data-del-movie]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.movies = state.movies.filter(m=>m.id!==btn.dataset.delMovie);
+      saveState(); renderMovies();
+    });
+  });
+}
+document.getElementById('addMovieBtn').addEventListener('click', ()=>{
+  const modal = buildModal(`
+    <h3>Adicionar filme</h3>
+    <div class="field"><label>Título</label><input id="mMovieTitle"></div>
+    <div class="field"><label>Data assistido</label><input type="date" id="mMovieDate" value="${todayKey()}"></div>
+    <div class="field"><label>Nota (1 a 5)</label><input type="number" id="mMovieRating" min="1" max="5" value="4"></div>
+    <div class="field"><label>Comentário</label><textarea id="mMovieNote"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close>Cancelar</button>
+      <button class="btn primary" id="mMovieSave">Salvar</button>
+    </div>
+  `);
+  modal.querySelector('#mMovieSave').addEventListener('click', ()=>{
+    const title = modal.querySelector('#mMovieTitle').value.trim();
+    if(!title) return showToast('Digite um título.');
+    state.movies.push({id:uid('movie'), title, date:modal.querySelector('#mMovieDate').value,
+      rating:+modal.querySelector('#mMovieRating').value, note:modal.querySelector('#mMovieNote').value.trim()});
+    saveState(); closeModal(); renderMovies(); checkBadges();
+  });
+});
+
+/* ============ RELATIONSHIPS ============ */
+function renderRelationships(){
+  const grid = document.getElementById('relCategoriesGrid');
+  grid.innerHTML = state.relationships.map(r=>{
+    const logs = state.relLogs.filter(l=>l.relId===r.id).sort((a,b)=>b.date.localeCompare(a.date));
+    const last = logs[0];
+    let sinceText = 'Nenhum registro ainda';
+    if(last){
+      const days = daysBetween(new Date(last.date), new Date());
+      sinceText = days===0? 'Hoje' : days===1? 'Há 1 dia' : `Há ${days} dias`;
+    }
+    return `
+    <div class="card stat-card">
+      <span class="eyebrow">${r.category}</span>
+      <div class="num" style="font-size:20px;">${sinceText}</div>
+      <div class="lbl">${logs.length} registro(s)</div>
+    </div>`;
+  }).join('');
+
+  const logList = document.getElementById('relLogList');
+  const sorted = [...state.relLogs].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,20);
+  if(sorted.length===0){
+    logList.innerHTML = `<div class="empty-state"><span class="em">❤️</span>Nenhum momento registrado ainda.</div>`;
+  } else {
+    logList.innerHTML = sorted.map(l=>{
+      const rel = state.relationships.find(r=>r.id===l.relId);
+      return `<div class="list-item">
+        <div class="meta"><h4>${rel?rel.category:'—'}</h4><p>${new Date(l.date+'T00:00').toLocaleDateString('pt-BR')} ${l.note?'· '+escapeHtml(l.note):''}</p></div>
+        <button class="btn sm ghost" data-del-rel="${l.id}">🗑</button>
+      </div>`;
+    }).join('');
+  }
+  logList.querySelectorAll('[data-del-rel]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.relLogs = state.relLogs.filter(l=>l.id!==btn.dataset.delRel);
+      saveState(); renderRelationships();
+    });
+  });
+}
+document.getElementById('addRelLogBtn').addEventListener('click', ()=>{
+  const modal = buildModal(`
+    <h3>Registrar momento</h3>
+    <div class="field"><label>Categoria</label>
+      <select id="mRelCat">${state.relationships.map(r=>`<option value="${r.id}">${r.category}</option>`).join('')}</select>
+    </div>
+    <div class="field"><label>Data</label><input type="date" id="mRelDate" value="${todayKey()}"></div>
+    <div class="field"><label>Observação</label><textarea id="mRelNote"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close>Cancelar</button>
+      <button class="btn primary" id="mRelSave">Salvar</button>
+    </div>
+  `);
+  modal.querySelector('#mRelSave').addEventListener('click', ()=>{
+    state.relLogs.push({id:uid('rel'), relId:modal.querySelector('#mRelCat').value, date:modal.querySelector('#mRelDate').value,
+      note:modal.querySelector('#mRelNote').value.trim()});
+    saveState(); closeModal(); renderRelationships();
+  });
+});
+
+/* ============ SELFCARE ============ */
+function getNextSelfcare(){
+  const now = new Date();
+  const items = state.selfcare.map(sc=>{
+    const last = sc.lastDone? new Date(sc.lastDone) : null;
+    const due = last? new Date(last.getTime() + sc.intervalDays*86400000) : now;
+    return {...sc, due};
+  }).sort((a,b)=>a.due-b.due);
+  if(items.length===0) return null;
+  const next = items[0];
+  const days = daysBetween(now, next.due);
+  let dueText;
+  if(days<0) dueText = `Atrasado há ${Math.abs(days)} dia(s)`;
+  else if(days===0) dueText = 'Hoje';
+  else dueText = `Em ${days} dia(s) — ${next.due.toLocaleDateString('pt-BR')}`;
+  return {...next, dueText};
+}
+function renderSelfcare(){
+  const list = document.getElementById('selfcareList');
+  const now = new Date();
+  list.innerHTML = state.selfcare.map(sc=>{
+    const last = sc.lastDone? new Date(sc.lastDone) : null;
+    const due = last? new Date(last.getTime() + sc.intervalDays*86400000) : now;
+    const days = daysBetween(now, due);
+    let statusText, statusColor;
+    if(!last){ statusText='Ainda não registrado'; statusColor='var(--ink-soft)'; }
+    else if(days<0){ statusText=`Atrasado há ${Math.abs(days)}d`; statusColor='#B5544C'; }
+    else if(days===0){ statusText='Previsto para hoje'; statusColor='var(--sage-dark)'; }
+    else { statusText=`Em ${days} dia(s)`; statusColor='var(--ink-soft)'; }
+    return `
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <h3>${sc.icon} ${sc.name}</h3>
+        <button class="btn sm primary" data-done-sc="${sc.id}">Concluído hoje</button>
+      </div>
+      <p style="font-size:12.5px; color:var(--ink-soft);">${sc.note}</p>
+      <p style="font-size:13px; margin-top:10px; color:${statusColor}; font-weight:600;">${statusText}</p>
+      <p style="font-size:11px; color:var(--ink-faint); margin-top:4px; font-family:var(--font-mono);">${last? 'Última vez: '+last.toLocaleDateString('pt-BR') : ''}</p>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('[data-done-sc]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const sc = state.selfcare.find(s=>s.id===btn.dataset.doneSc);
+      sc.lastDone = todayKey();
+      saveState(); renderSelfcare(); showToast(sc.name+' marcado como concluído ✨'); checkBadges();
+    });
+  });
+}
+
+/* ============ ORGANIZATION ============ */
+function renderOrganization(){
+  const list = document.getElementById('orgList');
+  if(state.organization.length===0){
+    list.innerHTML = `<div class="empty-state"><span class="em">🏡</span>Nada por aqui ainda.</div>`;
+  } else {
+    list.innerHTML = state.organization.map(o=>`
+      <div class="habit-row">
+        <div class="habit-check ${o.done?'done':''}" data-org="${o.id}">${o.done?'✓':''}</div>
+        <div class="habit-name">${o.name}</div>
+        <button class="btn sm ghost" data-del-org="${o.id}">🗑</button>
+      </div>`).join('');
+  }
+  list.querySelectorAll('[data-org]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const o = state.organization.find(x=>x.id===el.dataset.org);
+      o.done = !o.done;
+      saveState(); renderOrganization(); checkBadges();
+    });
+  });
+  list.querySelectorAll('[data-del-org]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      state.organization = state.organization.filter(x=>x.id!==el.dataset.delOrg);
+      saveState(); renderOrganization();
+    });
+  });
+}
+document.getElementById('orgAddBtn').addEventListener('click', ()=>{
+  const val = document.getElementById('orgNewInput').value.trim();
+  if(!val) return;
+  state.organization.push({id:uid('org'), name:val, done:false});
+  document.getElementById('orgNewInput').value='';
+  saveState(); renderOrganization();
+});
+
+/* ============ GOALS ============ */
+function renderGoals(){
+  const list = document.getElementById('goalsList');
+  if(state.goals.length===0){
+    list.innerHTML = `<div class="empty-state"><span class="em">🎯</span>Nenhuma meta criada ainda.</div>`;
+    return;
+  }
+  list.innerHTML = state.goals.map(g=>`
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <span class="pill">${g.category}</span>
+        <button class="btn sm ghost" data-del-goal="${g.id}">🗑</button>
+      </div>
+      <h3 class="mt" style="margin-bottom:6px;">${g.objective}</h3>
+      <p style="font-size:12px; color:var(--ink-soft);">Até ${g.date? new Date(g.date+'T00:00').toLocaleDateString('pt-BR') : 'sem prazo'}</p>
+      <div class="progress-bar mt"><div style="width:${g.progress}%"></div></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+        <input type="range" min="0" max="100" value="${g.progress}" data-progress-goal="${g.id}" style="width:60%;">
+        <span class="pill ${g.status==='concluida'?'':'pink'}">${g.status==='concluida'?'Concluída':'Em andamento'}</span>
+      </div>
+    </div>`).join('');
+  list.querySelectorAll('[data-progress-goal]').forEach(inp=>{
+    inp.addEventListener('input', ()=>{
+      const g = state.goals.find(x=>x.id===inp.dataset.progressGoal);
+      g.progress = +inp.value;
+      g.status = g.progress>=100? 'concluida' : 'andamento';
+      saveState(); renderGoals(); checkBadges();
+    });
+  });
+  list.querySelectorAll('[data-del-goal]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.goals = state.goals.filter(g=>g.id!==btn.dataset.delGoal);
+      saveState(); renderGoals();
+    });
+  });
+}
+document.getElementById('addGoalBtn').addEventListener('click', ()=>{
+  const modal = buildModal(`
+    <h3>Nova meta</h3>
+    <div class="field"><label>Categoria</label>
+      <select id="mGoalCat">
+        <option>Saúde</option><option>Leitura</option><option>Tempo de tela</option>
+        <option>Relacionamentos</option><option>Autocuidado</option><option>Organização</option>
+      </select>
+    </div>
+    <div class="field"><label>Objetivo</label><input id="mGoalObj"></div>
+    <div class="field"><label>Data alvo</label><input type="date" id="mGoalDate"></div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close>Cancelar</button>
+      <button class="btn primary" id="mGoalSave">Adicionar</button>
+    </div>
+  `);
+  modal.querySelector('#mGoalSave').addEventListener('click', ()=>{
+    const objective = modal.querySelector('#mGoalObj').value.trim();
+    if(!objective) return showToast('Descreva o objetivo.');
+    state.goals.push({id:uid('goal'), category:modal.querySelector('#mGoalCat').value, objective,
+      date:modal.querySelector('#mGoalDate').value, progress:0, status:'andamento'});
+    saveState(); closeModal(); renderGoals();
+  });
+});
+
+/* ============ JOURNAL ============ */
+function renderJournal(){
+  const jlist = document.getElementById('journalList');
+  const entries = [...state.journal].sort((a,b)=>b.date.localeCompare(a.date));
+  jlist.innerHTML = entries.length? entries.map(j=>`
+    <div class="list-item" style="align-items:flex-start;">
+      <div class="meta">
+        <h4>${new Date(j.date).toLocaleDateString('pt-BR')}</h4>
+        <p>${escapeHtml(j.text)}</p>
+      </div>
+      <button class="btn sm ghost" data-del-journal="${j.id}">🗑</button>
+    </div>`).join('') : `<div class="empty-state"><span class="em">📖</span>Nenhuma entrada ainda.</div>`;
+  jlist.querySelectorAll('[data-del-journal]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.journal = state.journal.filter(j=>j.id!==btn.dataset.delJournal);
+      saveState(); renderJournal();
+    });
+  });
+
+  const mlist = document.getElementById('momentsList');
+  const moments = [...state.moments].sort((a,b)=>b.date.localeCompare(a.date));
+  mlist.innerHTML = moments.length? moments.map(m=>`
+    <div class="list-item">
+      <div class="meta"><p>✨ ${escapeHtml(m.text)}</p></div>
+      <button class="btn sm ghost" data-del-moment="${m.id}">🗑</button>
+    </div>`).join('') : `<div class="empty-state"><span class="em">✨</span>Registre pequenas vitórias do seu dia.</div>`;
+  mlist.querySelectorAll('[data-del-moment]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.moments = state.moments.filter(m=>m.id!==btn.dataset.delMoment);
+      saveState(); renderJournal();
+    });
+  });
+}
+document.getElementById('journalAddBtn').addEventListener('click', ()=>{
+  const text = document.getElementById('journalInput').value.trim();
+  if(!text) return;
+  state.journal.push({id:uid('journal'), date:new Date().toISOString(), text});
+  document.getElementById('journalInput').value='';
+  saveState(); renderJournal(); checkBadges();
+});
+document.getElementById('momentAddBtn').addEventListener('click', ()=>{
+  const text = document.getElementById('momentInput').value.trim();
+  if(!text) return;
+  state.moments.push({id:uid('moment'), date:new Date().toISOString(), text});
+  document.getElementById('momentInput').value='';
+  saveState(); renderJournal();
+});
+
+/* ============ MONTHLY REVIEW ============ */
+function currentMonthLabel(){
+  return capitalize(new Date().toLocaleDateString('pt-BR', {month:'long', year:'numeric'}));
+}
+function renderReview(){
+  document.getElementById('revMonthLabel').textContent = currentMonthLabel();
+  const now = new Date();
+  const monthPrefix = now.toISOString().slice(0,7);
+
+  let treinoDays=0, leituraDays=0, habitosTotal=0;
+  Object.keys(state.habitLog).forEach(dateKey=>{
+    if(!dateKey.startsWith(monthPrefix)) return;
+    const log = state.habitLog[dateKey];
+    if(log['academia']||log['pilates']) treinoDays++;
+    if(log['ler']) leituraDays++;
+    habitosTotal += Object.values(log).filter(Boolean).length;
+  });
+  document.getElementById('revTreino').textContent = treinoDays;
+  document.getElementById('revLeitura').textContent = leituraDays;
+  document.getElementById('revHabitos').textContent = habitosTotal;
+  document.getElementById('revLivros').textContent = state.books.filter(b=>b.status==='concluido').length;
+  document.getElementById('revFilmes').textContent = state.movies.length;
+  document.getElementById('revSeries').textContent = state.series.filter(s=>s.status==='Em andamento').length;
+
+  const hist = document.getElementById('revHistory');
+  const revs = [...state.monthlyReviews].sort((a,b)=>b.month.localeCompare(a.month));
+  hist.innerHTML = revs.length? revs.map(r=>`
+    <div class="list-item" style="align-items:flex-start;">
+      <div class="meta">
+        <h4>${r.month}</h4>
+        <p><b>Orgulho:</b> ${escapeHtml(r.proud||'—')}</p>
+        <p><b>Próxima meta:</b> ${escapeHtml(r.nextGoal||'—')}</p>
+      </div>
+      <button class="btn sm ghost" data-del-review="${r.id}">🗑</button>
+    </div>`).join('') : `<div class="empty-state"><span class="em">📈</span>Sua primeira revisão aparecerá aqui.</div>`;
+  hist.querySelectorAll('[data-del-review]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.monthlyReviews = state.monthlyReviews.filter(r=>r.id!==btn.dataset.delReview);
+      saveState(); renderReview();
+    });
+  });
+}
+document.getElementById('revSaveBtn').addEventListener('click', ()=>{
+  state.monthlyReviews.push({
+    id:uid('review'), month:currentMonthLabel(),
+    proud:document.getElementById('revProud').value,
+    improve:document.getElementById('revImprove').value,
+    worked:document.getElementById('revWorked').value,
+    notWorked:document.getElementById('revNotWorked').value,
+    keep:document.getElementById('revKeep').value,
+    nextGoal:document.getElementById('revNextGoal').value
+  });
+  ['revProud','revImprove','revWorked','revNotWorked','revKeep','revNextGoal'].forEach(id=> document.getElementById(id).value='');
+  saveState(); renderReview(); showToast('Revisão mensal salva 📈'); checkBadges();
+});
+
+/* ============ CONFIG / SCREEN TIME / BADGES ============ */
+const BADGES_DEF = [
+  {id:'first_workout', em:'🏋', label:'Primeiro treino', test:()=> Object.values(state.habitLog).some(l=>l['academia']||l['pilates'])},
+  {id:'first_book', em:'📖', label:'Primeiro livro concluído', test:()=> state.books.some(b=>b.status==='concluido')},
+  {id:'seven_reading', em:'📚', label:'7 dias lendo', test:()=> maxStreak('ler')>=7},
+  {id:'thirty_skincare', em:'✨', label:'30 dias de skincare', test:()=> maxStreak('skin_am')>=30 || maxStreak('skin_pm')>=30},
+  {id:'three_weeks_gym', em:'💪', label:'3 semanas de academia', test:()=> maxStreak('academia')>=21}
+];
+function maxStreak(habitId){
+  // approximate: longest run of consecutive done days across log history
+  const dates = Object.keys(state.habitLog).filter(d=>state.habitLog[d][habitId]).sort();
+  if(dates.length===0) return 0;
+  let max=1, cur=1;
+  for(let i=1;i<dates.length;i++){
+    const prev = new Date(dates[i-1]), curD = new Date(dates[i]);
+    if(daysBetween(prev,curD)===1){ cur++; max=Math.max(max,cur); } else { cur=1; }
+  }
+  return max;
+}
+function checkBadges(){
+  let unlockedNew=false;
+  BADGES_DEF.forEach(b=>{
+    if(!state.badges[b.id] && b.test()){
+      state.badges[b.id]=true;
+      unlockedNew=true;
+      showToast('🏆 Conquista desbloqueada: '+b.label);
+    }
+  });
+  if(unlockedNew) saveState();
+}
+function renderConfig(){
+  document.getElementById('screenGoalInput').value = state.screenTime.goalMinutes;
+  document.getElementById('screenTodayInput').value = state.screenTime.log[todayKey()] || 0;
+
+  const chart = document.getElementById('screenChart');
+  const days = weekRange();
+  const maxVal = Math.max(state.screenTime.goalMinutes, ...days.map(d=> state.screenTime.log[todayKey(d)]||0), 30);
+  chart.innerHTML = days.map(d=>{
+    const key = todayKey(d);
+    const val = state.screenTime.log[key]||0;
+    const h = Math.round((val/maxVal)*100);
+    const over = val>state.screenTime.goalMinutes;
+    return `<div class="bar-wrap">
+      <div class="bar" style="height:${h}%; ${over?'background:linear-gradient(180deg, #E4A199, #C97B72);':''}"></div>
+      <div class="bar-lbl">${d.toLocaleDateString('pt-BR',{weekday:'short'}).slice(0,3)}</div>
+    </div>`;
+  }).join('');
+
+  const badgeGrid = document.getElementById('badgeGrid');
+  badgeGrid.innerHTML = BADGES_DEF.map(b=>`
+    <div class="badge ${state.badges[b.id]?'unlocked':''}">
+      <span class="em">${b.em}</span>
+      <span>${b.label}</span>
+    </div>`).join('');
+}
+document.getElementById('screenSaveBtn').addEventListener('click', ()=>{
+  state.screenTime.goalMinutes = +document.getElementById('screenGoalInput').value || 0;
+  state.screenTime.log[todayKey()] = +document.getElementById('screenTodayInput').value || 0;
+  saveState(); renderConfig(); showToast('Tempo de tela atualizado');
+});
+document.getElementById('themeLightBtn').addEventListener('click', ()=>{ state.settings.theme='light'; applyTheme(); saveState(); });
+document.getElementById('themeDarkBtn').addEventListener('click', ()=>{ state.settings.theme='dark'; applyTheme(); saveState(); });
+document.getElementById('resetDataBtn').addEventListener('click', ()=>{
+  if(confirm('Tem certeza? Isso vai apagar todos os seus dados do Life Book.')){
+    state = structuredClone(DEFAULT_STATE);
+    saveState(); applyTheme(); renderPage(currentPageName());
+    showToast('Dados apagados.');
+  }
+});
+
+/* ============ MODAL HELPERS ============ */
+function buildModal(innerHtml){
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `<div class="modal">${innerHtml}</div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeModal(); });
+  overlay.querySelectorAll('[data-close]').forEach(b=> b.addEventListener('click', closeModal));
+  return overlay;
+}
+function closeModal(){
+  document.querySelectorAll('.modal-overlay').forEach(m=>m.remove());
+}
+function escapeHtml(str){
+  return (str||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ============ SEARCH (simple) ============ */
+document.getElementById('searchToggle').addEventListener('click', ()=>{
+  const q = prompt('Pesquisar em livros, séries, filmes e diário:');
+  if(!q) return;
+  const term = q.toLowerCase();
+  const hits = [];
+  state.books.forEach(b=> b.title.toLowerCase().includes(term) && hits.push('📚 '+b.title));
+  state.series.forEach(s=> s.title.toLowerCase().includes(term) && hits.push('📺 '+s.title));
+  state.movies.forEach(m=> m.title.toLowerCase().includes(term) && hits.push('🎬 '+m.title));
+  state.journal.forEach(j=> j.text.toLowerCase().includes(term) && hits.push('📖 '+j.text.slice(0,40)));
+  showToast(hits.length? `${hits.length} resultado(s): ${hits.slice(0,3).join(' · ')}` : 'Nada encontrado.');
+});
+
+/* ============ INIT ============ */
+applyTheme();
+renderHeader();
+goPage('dashboard');
+checkBadges();
+</script>
+</body>
+</html>
